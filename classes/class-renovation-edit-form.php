@@ -88,13 +88,13 @@ class RVRP_Renovation_Edit_Form {
 		$submit   = $this->new ? __( 'Submit Renovation', 'rvrenopro' ) : __( 'Save Changes', 'rvrenopro' );
 		$updated  = $this->new ? __( 'Thank you for submitting your renovation! We will email you once your renovation has been approved for display.', 'rvrenopro' ) : __( 'Changes saved successfully.', 'rvrenopro' );
 		$post     = function_exists( 'maiup_get_user_post' ) ? maiup_get_user_post( get_current_user_id() ) : false;
-		$redirect = $post ? get_permalink( $post->ID ) . '#my-renovations' : '';
+		$redirect = $post ? get_permalink( $post->ID ) : '';
 
 		printf( '<p class="has-lg-margin-bottom"><a href="%s">← %s</a></p>', esc_url( $redirect ), __( 'Back to my profile', 'rvrenopro' ) );
 		printf( '<h1>%s</h1>', $title );
 
 		$args = [
-			'field_groups'       => [ 'group_63602dbf9a7d1' ],
+			'field_groups'       => [ 'rvrp_renovation_info_field_group' ],
 			'post_id'            => $this->new ? 'new_post' : $this->post_id,
 			'submit_value'       => $submit,
 			'updated_message'    => __( 'Thank you for submitting your renovation! We will email you once your renovation has been approved for display.', 'rvrenopro' ),
