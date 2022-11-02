@@ -23,6 +23,7 @@ class RVRP_Renovator_Edit {
 	 */
 	function run() {
 		// Enqueue CSS.
+		add_action( 'wp_enqueue_scripts',                      'wp_enqueue_media' ); // Allows WP uploader.
 		add_action( 'wp_enqueue_scripts',                      [ $this, 'enqueue' ] );
 		// Header code.
 		add_action( 'get_header',                              [ $this, 'get_form_head' ] );

@@ -105,11 +105,11 @@
 
 /* ACF specific fields */
 
-.acf-field-image .acf-label {
+.acf-field-image:not(.acf-field-rvrp-renovation-featured-image-id) .acf-label {
 	display: none;
 }
 
-.acf-image-uploader {
+.acf-field-image:not(.acf-field-rvrp-renovation-featured-image-id) .acf-image-uploader {
 	display: grid;
 	place-items: center;
 }

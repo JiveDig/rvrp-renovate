@@ -61,8 +61,8 @@ class RVRP_Edit_Listener {
 		add_filter( 'genesis_site_layout', [ $this, 'site_layout' ], 99, 1 );
 		add_filter( 'gettext',             [ $this, 'translate_text' ], 10, 3 );
 		add_action( 'get_header',          [ $this, 'get_form_head' ] );
+		add_action( 'wp_enqueue_scripts',  'wp_enqueue_media' ); // Allows WP uploader.
 	}
-
 
 	/**
 	 * Sets site layout.
