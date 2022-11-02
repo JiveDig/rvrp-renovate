@@ -4,6 +4,24 @@
 defined( 'ABSPATH' ) || die;
 
 /**
+ * Sets featured image fallback image ID.
+ *
+ * @return int
+ */
+function rvrp_get_featured_image_fallback() {
+	return apply_filters( 'rvrp_default_featured_image_id', 0 );
+}
+
+/**
+ * Sets avatar image fallback image ID.
+ *
+ * @return int
+ */
+function rvrp_get_avatar_fallback() {
+	return apply_filters( 'rvrp_default_avatar_id', 0 );
+}
+
+/**
  * If current user is a renovator.
  *
  * @return bool

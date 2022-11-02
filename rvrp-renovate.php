@@ -99,21 +99,3 @@ add_action( 'plugins_loaded', function() {
 // Include all php files in the /includes/ directory.
 foreach ( glob( dirname( __FILE__ ) . '/includes/*.php' ) as $file ) { include $file; }
 foreach ( glob( dirname( __FILE__ ) . '/classes/*.php' ) as $file ) { include $file; }
-
-/**
- * Sets featured image fallback image ID.
- *
- * @return int
- */
-function rvrp_get_featured_image_fallback() {
-	return apply_filters( 'rvrp_default_featured_image_id', 0 );
-}
-
-/**
- * Sets avatar image fallback image ID.
- *
- * @return int
- */
-function rvrp_get_avatar_fallback() {
-	return apply_filters( 'rvrp_default_avatar_id', 0 );
-}
