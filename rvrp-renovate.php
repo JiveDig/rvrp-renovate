@@ -53,10 +53,45 @@ function rvrp_plugin_activation() {
 		return;
 	}
 
-	$subscriber = $wp_roles->get_role( 'subscriber' );
+	$subscriber                   = $wp_roles->get_role( 'subscriber' );
+	$capabilities                 = $subscriber->capabilities;
+	$capabilities['upload_files'] = true;
 
-	$wp_roles->add_role( 'renovator', __( 'Renovator', 'rvrenopro' ), $subscriber->capabilities );
+	$wp_roles->add_role( 'renovator', __( 'Renovator', 'rvrenopro' ), $capabilities );
 }
+
+/**
+ * Allows renovators to upload media.
+ *
+ * @return void
+ */
+add_action( 'init', function() {
+	if ( is_admin() ) {
+		return;
+	}
+
+	$contributor = get_role( 'renovator' );
+	$contributor->add_cap( 'upload_files' );
+});
+
+/**
+ * Forces renovators to only see media they've uploaded.
+ *
+ * @return array
+ */
+add_filter( 'ajax_query_attachments_args', function( $query ) {
+	if ( is_admin() ) {
+		return $query;
+	}
+
+	if ( ! rvrp_is_renovator() || current_user_can( 'manage_options' ) ) {
+		return $query;
+	}
+
+	$query['author'] = get_current_user_id();
+
+	return $query;
+});
 
 /**
  * Maybe add updater.

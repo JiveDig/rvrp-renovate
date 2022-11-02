@@ -55,16 +55,18 @@ class RVRP_Renovation_Edit_Form {
 		wp_update_post( $args );
 
 		if ( $this->new ) {
-			$this->send_email();
+			$this->send_email( $post_id );
 		}
 	}
 
 	/**
 	 * Sends email notification for new revovator subsmissions.
 	 *
+	 * @param int The post ID.
+	 *
 	 * @return void
 	 */
-	function send_email() {
+	function send_email( $post_id ) {
 		$emails = [
 			'allthingswithpurpose@gmail.com',
 			'mike@thestizmedia.com',

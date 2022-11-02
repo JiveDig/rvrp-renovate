@@ -179,7 +179,7 @@
 	margin: auto !important;
 }
 
-#menu-item-upload {
+.media-router .media-menu-item {
 	color: initial;
 }
 
