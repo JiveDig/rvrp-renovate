@@ -75,7 +75,7 @@ add_action( 'plugins_loaded', function() {
 	}
 
 	// Setup the updater.
-	$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/jivedig/rvrp-renovate', __FILE__, 'rvrenopro' );
+	$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/JiveDig/rvrp-renovate', __FILE__, 'rvrenopro' );
 
 	// Set the stable branch.
 	$updater->setBranch( 'main' );
@@ -106,7 +106,7 @@ foreach ( glob( dirname( __FILE__ ) . '/classes/*.php' ) as $file ) { include $f
  * @return int
  */
 function rvrp_get_featured_image_fallback() {
-	return 1838;
+	return apply_filters( 'rvrp_default_featured_image_id', 0 );
 }
 
 /**
@@ -115,5 +115,5 @@ function rvrp_get_featured_image_fallback() {
  * @return int
  */
 function rvrp_get_avatar_fallback() {
-	return 308;
+	return apply_filters( 'rvrp_default_avatar_id', 0 );
 }
