@@ -5,7 +5,7 @@
  * Plugin URI:        https://rvrenopro.com/
  * GitHub Plugin URI: https://github.com/jivedig/rvrp-renovate/
  * Description:       Custom code for Renovators and Renovations.
- * Version:           1.0.3
+ * Version:           1.0.4
  *
  * Author:            Mike Hemberger @JiveDig
  * Author URI:        https://bizbudding.com
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Plugin version.
 if ( ! defined( 'RVRP_RENOVATE_VERSION' ) ) {
-	define( 'RVRP_RENOVATE_VERSION', '1.0.3' );
+	define( 'RVRP_RENOVATE_VERSION', '1.0.4' );
 }
 
 // Plugin Folder Path.
@@ -47,17 +47,8 @@ register_activation_hook( __FILE__, 'rvrp_plugin_activation' );
  * @return void
  */
 function rvrp_plugin_activation() {
-	$wp_roles = wp_roles();
-
-	if ( ! $wp_roles ) {
-		return;
-	}
-
-	$subscriber                   = $wp_roles->get_role( 'subscriber' );
-	$capabilities                 = $subscriber->capabilities;
-	$capabilities['upload_files'] = true;
-
-	$wp_roles->add_role( 'renovator', __( 'Renovator', 'rvrenopro' ), $capabilities );
+	$subscriber = get_role( 'subscriber' );
+	add_role( 'renovator', __( 'Renovator', 'rvrenopro' ), $subscriber->capabilities );
 }
 
 /**
@@ -70,8 +61,8 @@ add_action( 'init', function() {
 		return;
 	}
 
-	$contributor = get_role( 'renovator' );
-	$contributor->add_cap( 'upload_files' );
+	$renovator = get_role( 'renovator' );
+	$renovator->add_cap( 'upload_files' );
 });
 
 /**
@@ -80,15 +71,13 @@ add_action( 'init', function() {
  * @return array
  */
 add_filter( 'ajax_query_attachments_args', function( $query ) {
-	if ( is_admin() ) {
+	$user_id = get_current_user_id();
+
+	if ( ! rvrp_is_renovator( $user_id ) || current_user_can( 'manage_options' ) ) {
 		return $query;
 	}
 
-	if ( ! rvrp_is_renovator() || current_user_can( 'manage_options' ) ) {
-		return $query;
-	}
-
-	$query['author'] = get_current_user_id();
+	$query['author'] = $user_id;
 
 	return $query;
 });
