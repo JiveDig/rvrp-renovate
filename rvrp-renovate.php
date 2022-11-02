@@ -11,7 +11,7 @@
  * Author URI:        https://bizbudding.com
  */
 
- // Exit if accessed directly.
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Plugin version.
@@ -57,6 +57,44 @@ function rvrp_plugin_activation() {
 
 	$wp_roles->add_role( 'renovator', __( 'Renovator', 'rvrenopro' ), $subscriber->capabilities );
 }
+
+/**
+ * Maybe add updater.
+ *
+ * @return void
+ */
+add_action( 'plugins_loaded', function() {
+	// Bail if current user cannot manage plugins.
+	if ( ! current_user_can( 'install_plugins' ) ) {
+		return;
+	}
+
+	// Bail if plugin updater is not loaded.
+	if ( ! class_exists( 'Puc_v4_Factory' ) ) {
+		return;
+	}
+
+	// Setup the updater.
+	$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/jivedig/rvrp-renovate', __FILE__, 'rvrenopro' );
+
+	// Set the stable branch.
+	$updater->setBranch( 'main' );
+
+	// Maybe set github api token.
+	if ( defined( 'MAI_GITHUB_API_TOKEN' ) ) {
+		$updater->setAuthentication( MAI_GITHUB_API_TOKEN );
+	}
+
+	// Add icons for Dashboard > Updates screen.
+	if ( function_exists( 'mai_get_updater_icons' ) && $icons = mai_get_updater_icons() ) {
+		$updater->addResultFilter(
+			function ( $info ) use ( $icons ) {
+				$info->icons = $icons;
+				return $info;
+			}
+		);
+	}
+});
 
 // Include all php files in the /includes/ directory.
 foreach ( glob( dirname( __FILE__ ) . '/includes/*.php' ) as $file ) { include $file; }
