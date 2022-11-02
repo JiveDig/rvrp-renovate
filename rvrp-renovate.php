@@ -5,7 +5,7 @@
  * Plugin URI:        https://rvrenopro.com/
  * GitHub Plugin URI: https://github.com/jivedig/rvrp-renovate/
  * Description:       Custom code for Renovators and Renovations.
- * Version:           1.0.1
+ * Version:           1.0.2
  *
  * Author:            Mike Hemberger @JiveDig
  * Author URI:        https://bizbudding.com
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Plugin version.
 if ( ! defined( 'RVRP_RENOVATE_VERSION' ) ) {
-	define( 'RVRP_RENOVATE_VERSION', '1.0.1' );
+	define( 'RVRP_RENOVATE_VERSION', '1.0.2' );
 }
 
 // Plugin Folder Path.
