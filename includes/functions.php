@@ -87,12 +87,6 @@ function rvrp_is_renovators_renovation( $post_id = 0 ) {
  * @return bool
  */
 function rvrp_is_renovators_profile( $post_id = 0 ) {
-	static $is_profile = null;
-
-	if ( ! is_null( $is_profile ) ) {
-		return $is_profile;
-	}
-
 	if ( ! rvrp_is_renovator() ) {
 		$is_profile = false;
 		return $is_profile;
@@ -123,4 +117,22 @@ function rvrp_is_renovators_profile( $post_id = 0 ) {
 	$is_profile = get_the_ID() === (int) $post->ID;
 
 	return $is_profile;
+}
+
+/**
+ * Gets the avatar ID.
+ *
+ * @param int $post_id The post ID to check. Uses current if none.
+ *
+ * @return int
+ */
+function rvrp_get_avatar_id( $post_id = 0 ) {
+	if ( ! $post_id ) {
+		$post_id = get_the_ID();
+	}
+
+	$image_id = get_post_meta( $post_id, 'avatar_id', true );
+	$image_id = $image_id ?: rvrp_get_avatar_fallback();
+
+	return $image_id;
 }

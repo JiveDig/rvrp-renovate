@@ -3,26 +3,6 @@
 	border-radius: var(--border-radius);
 }
 
-.rvrp-avatar {
-	position: relative;
-	display: block;
-	max-width: 200px;
-	margin: var(--rvrp-avatar-margin-top, 0) auto var(--spacing-lg);
-	overflow: hidden;
-	text-align: center;
-	border: 6px solid white;
-	border-radius: 9999px;
-}
-
-.entry-image-single + .rvrp-avatar {
-	--rvrp-avatar-margin-top: -150px;
-}
-
-.rvrp-avatar__image {
-	display: block;
-	width: 100%;
-}
-
 .entry-title-single {
 	position: relative;
 	display: flex;

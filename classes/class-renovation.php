@@ -32,8 +32,6 @@ class RVRP_Renovation {
 	function run() {
 		// Enqueue CSS.
 		add_action( 'wp_enqueue_scripts',    [ $this, 'enqueue' ] );
-		// Add avatar.
-		add_action( 'mai_after_entry_image', [ $this, 'do_avatar' ], 10, 2 );
 		// Add renovator info.
 		add_action( 'mai_after_entry_image', [ $this, 'do_renovator' ], 10, 2 );
 		// Add content.
@@ -55,51 +53,6 @@ class RVRP_Renovation {
 			$version .= '.' . date( 'njYHi', filemtime( $file_path ) );
 			wp_enqueue_style( 'rvrp-renovation', $file_url, [], $version );
 		}
-	}
-
-	/**
-	 * Adds avatar image after entry image.
-	 *
-	 * @param WP_Post $entry The post object.
-	 * @param array   $args  The markup args.
-	 *
-	 * @return void
-	 */
-	function do_avatar( $entry, $args ) {
-		if ( 'renovation' !== $entry->post_type ) {
-			return;
-		}
-
-		$avatar   = '';
-		$image_id = $this->get_avatar_id();
-
-		if ( $image_id ) {
-			$avatar .= '<div class="rvrp-avatar">';
-				$avatar .= sprintf( '<a href="%s" class="rvrp-avatar__link">', $this->profile_url );
-					$avatar .= wp_get_attachment_image( $image_id, 'square-sm', false, [ 'class' => 'rvrp-avatar__image' ] );
-				$avatar .= '</a>';
-			$avatar .= '</div>';
-		}
-
-		echo $avatar;
-	}
-
-	/**
-	 * Gets the avatar ID.
-	 *
-	 * @return int
-	 */
-	function get_avatar_id() {
-		static $image_id = null;
-
-		if ( ! is_null( $image_id ) ) {
-			return $image_id;
-		}
-
-		$image_id  = get_post_meta( $this->profile_id, 'avatar_id', true );
-		$image_id  = $image_id ?: rvrp_get_avatar_fallback();
-
-		return $image_id;
 	}
 
 	/**
@@ -164,7 +117,7 @@ class RVRP_Renovation {
 		echo '</div>';
 
 		// Get other fields.
-		$fields = acf_get_fields( 'group_63602dbf9a7d1' );
+		$fields = acf_get_fields( 'rvrp_renovation_info_field_group' );
 		$labels = wp_list_pluck( $fields, 'label', 'name' );
 		$skips  = [
 			'_thumbnail_id',
@@ -220,77 +173,6 @@ class RVRP_Renovation {
 				break;
 			}
 		}
-
-		$keys   = [
-			// 'rvrp_adjective',
-			// 'rvrp_year',
-			// 'rvrp_make',
-			// 'rvrp_model',
-			'rvrp_slideouts',
-			'rvrp_sleep',
-			'rvrp_acquisition',
-			'rvrp_attraction',
-			'rvrp_damage',
-			// 'rvrp_before_photos',
-			'rvrp_improvements',
-			'rvrp_time',
-			'rvrp_cost',
-			'rvrp_difference',
-			'rvrp_challange',
-			'rvrp_proud',
-			'rvrp_style',
-			'rvrp_influences',
-			// 'rvrp_after_photos',
-			'rvrp_paint',
-			'rvrp_materials',
-			'rvrp_shop',
-		];
-
-		// $headings = [
-		// ];
-		// $array = [
-		// 	__( 'About this RV', 'rvrenopro' ) = [
-		// 		'rvrp_slideouts',
-		// 		'rvrp_sleep',
-		// 		'rvrp_acquisition',
-		// 		'rvrp_attraction',
-		// 		'rvrp_damage',
-		// 	],
-		// 	__( 'About the process', 'rvrenopro' ) => [
-		// 		'rvrp_improvements',
-		// 		'rvrp_time',
-		// 		'rvrp_cost',
-		// 		'rvrp_difference',
-		// 		'rvrp_challange',
-		// 		'rvrp_proud',
-		// 		'rvrp_style',
-		// 		'rvrp_influences',
-		// 	],
-		// 	__( 'Resources', 'rvrenopro' ) => [
-		// 		'rvrp_paint',
-		// 		'rvrp_materials',
-		// 		'rvrp_shop',
-		// 	],
-		// ];
-
-
-		// foreach ( $array as $heading => $keys ) {
-
-		// 	printf( '<h2 class="has-xl-margin-bottom">%s</h2>', $heading );
-
-		// 	foreach ( $keys as $key ) {
-		// 		$label = $labels[ $key ];
-		// 		$value = get_field( $key );
-
-		// 		if ( is_null( $value ) || '' == $value ) {
-		// 			continue;
-		// 		}
-
-		// 		printf( '<h3 class="has-md-font-size">%s</h3>', $label );
-		// 		echo $value;
-		// 		echo '<div class="has-xl-padding"></div>';
-		// 	}
-		// }
 	}
 }
 
