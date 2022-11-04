@@ -46,11 +46,22 @@
 	--link-color-hover: var(--color-primary);
 }
 
-.rvrp-link--website + li::before {
-	margin-right: var(--spacing-xs);
-	margin-left: var(--spacing-sm);
-	color: var(--color-heading);
-	content: "/";
+@media only screen and (max-width: 599px) {
+
+	.rvrp-link--website {
+		flex-basis: 100%;
+		width: 100%;
+	}
+}
+
+@media only screen and (min-width: 600px) {
+
+	.rvrp-link--website + li::before {
+		margin-right: var(--spacing-xs);
+		margin-left: var(--spacing-sm);
+		color: var(--color-heading);
+		content: "/";
+	}
 }
 
 .entry-excerpt-single {
