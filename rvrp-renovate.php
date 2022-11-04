@@ -5,7 +5,7 @@
  * Plugin URI:        https://rvrenopro.com/
  * GitHub Plugin URI: https://github.com/jivedig/rvrp-renovate/
  * Description:       Custom code for Renovators and Renovations.
- * Version:           1.0.5
+ * Version:           1.0.6
  *
  * Author:            Mike Hemberger @JiveDig
  * Author URI:        https://bizbudding.com
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Plugin version.
 if ( ! defined( 'RVRP_RENOVATE_VERSION' ) ) {
-	define( 'RVRP_RENOVATE_VERSION', '1.0.5' );
+	define( 'RVRP_RENOVATE_VERSION', '1.0.6' );
 }
 
 // Plugin Folder Path.
@@ -197,7 +197,7 @@ function rvrp_do_avatar( $entry, $args ) {
 			position: relative;
 			display: block;
 			max-width: min(200px, 33.333333%);
-			margin: var(--rvrp-avatar-margin-top, 0) auto var(--spacing-lg);
+			margin: var(--rvrp-avatar-margin-top, 0) auto var(--rvrp-avatar-margin-bottom, var(--spacing-lg));
 			overflow: hidden;
 			text-align: center;
 			border: 6px solid white;
@@ -208,6 +208,9 @@ function rvrp_do_avatar( $entry, $args ) {
 		}
 		.entry-image-link + .rvrp-avatar {
 			--rvrp-avatar-margin-top: calc(min(200px, 33.333333%) * -0.5);
+		}
+		.mai-grid {
+			--rvrp-avatar-margin-bottom: 0;
 		}
 		.rvrp-avatar__image {
 			display: block;
