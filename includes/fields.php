@@ -364,7 +364,7 @@ add_action( 'acf/init', function() {
 				[
 					'key'           => 'rvrp_renovation_sources_heading',
 					'type'          => 'message',
-					'message'       => sprintf( '<h2>%s</h2><p>%s</p>', __( 'Sources', 'rvrenopro' ), __( 'Feel free to share any links to your favorite shops, products, businesses, etc.', 'rvrenopro' ) ),
+					'message'       => sprintf( '<h2>%s</h2><p>%s</p>', __( 'Sources', 'rvrenopro' ), __( 'Feel free to share any links to your favorite shops, products, businesses, etc. Affiliate link are prohibited per Amazon and other affiliate program terms. RV Reno Pro reserves the right to use our own affiliate links to help cover costs and support the site.', 'rvrenopro' ) ),
 					'new_lines'     => '',
 					'esc_html'      => 0,
 				],

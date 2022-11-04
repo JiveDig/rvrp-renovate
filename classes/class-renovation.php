@@ -117,9 +117,14 @@ class RVRP_Renovation {
 		echo '</div>';
 
 		// Get other fields.
-		$fields = acf_get_fields( 'rvrp_renovation_info_field_group' );
-		$labels = wp_list_pluck( $fields, 'label', 'name' );
-		$skips  = [
+		$fields   = acf_get_fields( 'rvrp_renovation_info_field_group' );
+		$labels   = wp_list_pluck( $fields, 'label', 'name' );
+		$headings = [
+			'rvrp_renovation_rv_heading'      => sprintf( '<h2 style="text-align:center;">%s</h2>', __( 'About the RV', 'rvrenopro' ) ),
+			'rvrp_renovation_process_heading' => sprintf( '<h2 style="text-align:center;">%s</h2>', __( 'About the Process', 'rvrenopro' ) ),
+			'rvrp_renovation_sources_heading' => sprintf( '<h2 style="text-align:center;">%s</h2><p style="text-align:center;">%s</p>', __( 'Sources', 'rvrenopro' ), __( 'The following recommendations may contain affiliate links to help support our site.', 'rvrenopro' ) ),
+		];
+		$skips    = [
 			'_thumbnail_id',
 			'rvrp_adjective',
 			'rvrp_year',
@@ -135,7 +140,7 @@ class RVRP_Renovation {
 
 			switch ( $field['type'] ) {
 				case 'message':
-					echo $field['message'];
+					echo isset( $headings[ $field['key'] ] ) ? $headings[ $field['key'] ] : $field['message'];
 					echo '<div class="has-md-padding"></div>';
 				case 'number':
 				case 'text':
