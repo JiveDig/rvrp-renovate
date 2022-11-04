@@ -209,7 +209,7 @@ function rvrp_do_avatar( $entry, $args ) {
 		.entry-image-link + .rvrp-avatar {
 			--rvrp-avatar-margin-top: calc(min(200px, 33.333333%) * -0.5);
 		}
-		.mai-grid {
+		.entries {
 			--rvrp-avatar-margin-bottom: 0;
 		}
 		.rvrp-avatar__image {
